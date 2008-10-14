@@ -59,9 +59,9 @@ appropriate region!
 
 == Download
 
-Currently this library is available from:
+Currently this library is available from https://github.com/itteco/service_merchant
 
-https://github.com/itteco/service_merchant
+ git clone git@github.com:itteco/service_merchant.git
 
 == Installation
 
