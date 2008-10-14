@@ -1,0 +1,7 @@
+<% @page_name = "Subscriptions with payment problems" %>
+
+<ul>
+<% for subscription in @subscriptions %>
+<li><%= subscription.account_id %> - <%= subscription.tariff_plan_id %>  <%= link_to 'more', :action => :problem_subscription, :id => subscription.id %></li>
+<% end %>
+</ul>

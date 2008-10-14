@@ -1,0 +1,78 @@
+# Tariff configuration for freshbooks
+# http://www.freshbooks.com/pricing.php
+#
+
+freshbooks:
+  features:
+    clients: &clients
+      name: Active Clients
+      description: "Number of clients available for management"
+    staff: &staff
+      name: Staff Members
+      description: "Number of staff members who can access an account"
+  payment_terms:
+    monthly: &monthly
+      name: Monthly payments
+      periodicity: 1m
+  services:
+    shuttle_bus: &shuttle_bus
+      name: Shuttle Bus
+      features:
+       - feature: *clients
+         quantity: 25
+       - feature: *staff
+         quantity: 1
+    limousine: &limousine
+      name: Limousine
+      features:
+       - feature: *clients
+         quantity: 100
+       - feature: *staff
+         quantity: 2
+    private_jet: &private_jet
+      name: Private Jet
+      features:
+       - feature: *clients
+         quantity: 500
+       - feature: *staff
+         quantity: 3
+    starship: &starship
+      name: Starship
+      features:
+       - feature: *clients
+         quantity: 2000
+       - feature: *staff
+         quantity: 10
+    time_machine: &time_machine
+      name: Time Machine
+      features:
+       - feature: *clients
+         quantity: 5000
+       - feature: *staff
+         quantity: 20
+  tariff_plans:
+    shuttle_bus_monthly:
+      service: *shuttle_bus
+      payment_term: *monthly
+      currency: USD
+      price: 1400
+    limousine_monthly:
+      service: *limousine
+      payment_term: *monthly
+      currency: USD
+      price: 2700
+    private_jet_monthly:
+      service: *private_jet
+      payment_term: *monthly
+      currency: USD
+      price: 3900
+    starship_monthly:
+      service: *starship
+      payment_term: *monthly
+      currency: USD
+      price: 8900
+    time_machine_monthly:
+      service: *time_machine
+      payment_term: *monthly
+      currency: USD
+      price: 14900

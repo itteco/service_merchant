@@ -1,0 +1,101 @@
+# Tariff configuration for backpack
+# http://www.backpackit.com/signup
+#
+
+backpack:
+  features:
+    user: &user
+      name: User Accounts
+      description: "User accounts available within application"
+    storage: &storage
+      name: "File Storage"
+      unit: Gigabyte
+      description: "File storage maximum disk quota"
+    page: &page
+      name: Pages
+      description: "Backpack Pages are the core of Backpack. You can add any combination of notes, to-dos, files, photos, and dividers to a Backpack Page."
+    group_calendar: &group_calendar
+      name: Group calendar
+      description: "Shared calendar for all users"
+    message_boards: &message_boards
+      name: Message Boards
+      description: "Backpack's Message Boards allow you to centralize your communications and discussions online."
+    ssl: &ssl
+      name: SSL Security
+      description: "Whether SSL encryption for online sessions is available or not"
+    free_campfire_premium: &free_campfire_premium
+      name: Free Campfire Premium
+      description: "Free Premium Campfire membership. Campfire is real-time group chat tool for businesses."
+  payment_terms:
+    monthly: &monthly
+      name: Monthly payments
+      periodicity: 1m
+      trial_days: 30
+  services:
+    solo: &solo
+      name: Solo
+      features:
+       - feature: *user
+         quantity: 1
+       - feature: *storage
+         quantity: 1
+       - feature: *page
+         quantity: 0
+       - feature: *ssl
+    basic: &basic
+      name: Basic
+      features:
+       - feature: *user
+         quantity: 6
+       - feature: *storage
+         quantity: 4
+       - feature: *page
+         quantity: 1000
+       - feature: *group_calendar
+       - feature: *message_boards
+    plus: &plus
+      name: Plus
+      features:
+       - feature: *user
+         quantity: 15
+       - feature: *storage
+         quantity: 10
+       - feature: *page
+         quantity: 2500
+       - feature: *group_calendar
+       - feature: *message_boards
+       - feature: *ssl
+    pro: &pro
+      name: Pro
+      features:
+       - feature: *user
+         quantity: 40
+       - feature: *storage
+         quantity: 20
+       - feature: *page
+         quantity: 5000
+       - feature: *group_calendar
+       - feature: *message_boards
+       - feature: *ssl
+       - feature: *free_campfire_premium
+  tariff_plans:
+    solo_monthly:
+      service: *solo
+      payment_term: *monthly
+      currency: USD
+      price: 700
+    basic_monthly:
+      service: *basic
+      payment_term: *monthly
+      currency: USD
+      price: 2400
+    plus_monthly:
+      service: *plus
+      payment_term: *monthly
+      currency: USD
+      price: 4900
+    pro_monthly:
+      service: *pro
+      payment_term: *monthly
+      currency: USD
+      price: 9900

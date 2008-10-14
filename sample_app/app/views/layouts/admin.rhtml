@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+  <head>
+    <title><%= @page_title or @page_name or 'New page' %> : Admin : MySite.com</title>
+  <%= javascript_include_tag :defaults %>
+
+<style type='text/css'>
+HR {height: 1px; background-color: red; padding: 0; border: none;}
+TBODY TH {text-align: left;}
+
+</style>
+</head>
+
+<body>
+<h1>Admin MySite.com</h1>
+<hr />
+<h2><%= @page_name or @page_title or 'New page' %></h2>
+<div class='content'>
+<%= yield  %>
+</div>
+
+<% if !current_page? :action => nil %>
+<p style='margin-top: 2em;'>&uarr; <%= link_to 'Home', :action => nil %></p>
+<% end %>
+
+<hr />
+
+MySite.com
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+# Tariff configuration for e-lm
+# http://www.e-lm.com/subscribe.php?theme=normal&textsize=small&lang=us
+#
+
+elm:
+  features:
+    add_programs: &add_programs
+      name: "Add programs"
+      description: "Add programs"
+    add_projects_and_subprojects: &add_projects_and_subprojects
+      name: "Add projects and sub-projects"
+      description: "Add projects and sub-projects"
+    manage_budget: &manage_budget
+      name: "Manage budget"
+      description: "Manage budget"
+    manage_milestones: &manage_milestones
+      name: "Manage milestones"
+      description: "Manage milestones"
+    manage_risks: &manage_risks
+      name: "Manage risks"
+      description: "Manage risks"
+    manage_issues: &manage_issues
+      name: "Manage issues"
+      description: "Manage issues"
+    manage_change_requests: &manage_change_requests
+      name: "Manage change requests"
+      description: "Manage change requests"
+    manage_requirements: &manage_requirements
+      name: "Manage requirements"
+      description: "Manage requirements"
+    manage_traceability: &manage_traceability
+      name: "Manage traceability"
+      description: "Manage traceability"
+    manage_testcases: &manage_testcases
+      name: "Manage test-cases"
+      description: "Manage test-cases"
+    manage_test_results: &manage_test_results
+      name: "Manage test results"
+      description: "Manage test results"
+    manage_defects: &manage_defects
+      name: "Manage defects"
+      description: "Manage defects"
+    manage_products: &manage_products
+      name: "Manage products"
+      description: "Manage products"
+    manage_releases_roadmap: &manage_releases_roadmap
+      name: "Manage releases (roadmap)"
+      description: "Manage releases (roadmap)"
+    manage_features: &manage_features
+      name: "Manage features"
+      description: "Manage features"
+    manage_release_notes: &manage_release_notes
+      name: "Manage release notes"
+      description: "Manage release notes"
+    add_edit_or_delete_users: &add_edit_or_delete_users
+      name: "Add, edit or delete users"
+      description: "Add, edit or delete users"
+    set_the_licenses_a_user_has_accees_to: &set_the_licenses_a_user_has_accees_to
+      name: "Set the licenses a user has accees to"
+      description: "Set the licenses a user has accees to"
+    add_users_to_access_control_groups: &add_users_to_access_control_groups
+      name: "Add users to access control groups"
+      description: "Add users to access control groups"
+    define_report_templates: &define_report_templates
+      name: "Define report templates"
+      description: "Define report templates"
+    define_lifecycles_workflow: &define_lifecycles_workflow
+      name: "Define lifecycles (workflow)"
+      description: "Define lifecycles (workflow)"
+    define_access_control_groups: &define_access_control_groups
+      name: "Define access control groups"
+      description: "Define access control groups"
+  services:
+    program_project: &program_project
+      name: "Program & Project Management"
+      features:
+       - feature: *add_programs
+       - feature: *add_projects_and_subprojects
+       - feature: *manage_budget
+       - feature: *manage_milestones
+       - feature: *manage_risks
+       - feature: *manage_issues
+       - feature: *manage_change_requests
+    scope: &scope
+      name: Scope Management
+      features:
+       - feature: *add_programs
+       - feature: *add_projects_and_subprojects
+       - feature: *manage_change_requests
+       - feature: *manage_requirements
+       - feature: *manage_traceability
+    test: &test
+      name: Test Management
+      features:
+       - feature: *add_programs
+       - feature: *add_projects_and_subprojects
+       - feature: *manage_traceability
+       - feature: *manage_testcases
+       - feature: *manage_test_results
+       - feature: *manage_defects
+       - feature: *manage_products
+    product: &product
+      name: Product Management
+      features:
+       - feature: *add_programs
+       - feature: *manage_issues
+       - feature: *manage_change_requests
+       - feature: *manage_defects
+       - feature: *manage_products
+       - feature: *manage_releases_roadmap
+       - feature: *manage_features
+       - feature: *manage_release_notes
+    account: &account
+      name: Account Management
+      features:
+       - feature: *add_edit_or_delete_users
+       - feature: *set_the_licenses_a_user_has_accees_to
+       - feature: *add_users_to_access_control_groups
+    system: &system
+      name: System Administration
+      features:
+       - feature: *add_programs
+       - feature: *add_projects_and_subprojects
+       - feature: *manage_budget
+       - feature: *manage_milestones
+       - feature: *manage_risks
+       - feature: *manage_issues
+       - feature: *manage_change_requests
+       - feature: *manage_requirements
+       - feature: *manage_traceability
+       - feature: *manage_testcases
+       - feature: *manage_test_results
+       - feature: *manage_defects
+       - feature: *manage_products
+       - feature: *manage_releases_roadmap
+       - feature: *manage_features
+       - feature: *manage_release_notes
+       - feature: *add_edit_or_delete_users
+       - feature: *set_the_licenses_a_user_has_accees_to
+       - feature: *add_users_to_access_control_groups
+       - feature: *define_report_templates
+       - feature: *define_lifecycles_workflow
+       - feature: *define_access_control_groups
+  tariff_plans:
+    program_project_monthly:
+      service: *program_project
+      payment_term: *monthly
+      currency: USD
+      price: 1400
+    scope_monthly:
+      service: *scope
+      payment_term: *monthly
+      currency: USD
+      price: 2700
+    test_monthly:
+      service: *test
+      payment_term: *monthly
+      currency: USD
+      price: 3900
+    product_monthly:
+      service: *product
+      payment_term: *monthly
+      currency: USD
+      price: 8900
+    account_monthly:
+      service: *account
+      payment_term: *monthly
+      currency: USD
+      price: 14900
+    system_monthly:
+      service: *system
+      payment_term: *monthly
+      currency: USD
+      price: 14900

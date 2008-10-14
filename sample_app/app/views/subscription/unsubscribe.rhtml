@@ -1,0 +1,12 @@
+<% @page_name = "Unsubscribe" %>
+
+Unsubscribe from this subscription?
+
+<%= render :partial => 'subscription', :locals => {:subscription => @subscription, :tariff_plan => @sm.all_tariff_plans[@subscription.tariff_plan_id]} %>
+
+<p>
+<% form_tag :action => :unsubscribe do %>
+  <input type='hidden' name='id' value='<%= @subscription.id %>'>
+  <input type='submit' name='submit' value='Unsubscribe'> <%= link_to 'Cancel', :action => :show, :id => @subscription.id %>
+<% end %>
+</p>

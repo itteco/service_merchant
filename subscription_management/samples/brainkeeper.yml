@@ -1,0 +1,90 @@
+# Tariff configuration for brainkeeper
+# http://www.brainkeeper.com/pricing/
+#
+# Orginal tariffs
+# ===============
+# Some tariffs were removed
+#
+# Total of 10 User Accounts     $ 35  USD       $ 385  USD
+# Total of 35 User Accounts     $ 95  USD       $ 1,045  USD
+# Total of 100 User Accounts    $ 199  USD      $ 2,189  USD
+# Total of 500 User Accounts    $ 399  USD      $ 4,389  USD
+
+brainkeeper: # namespace
+  features:
+    account: &account
+      name: User Accounts
+      description: "Available user accounts"
+  # It's recommended to reuse default payment terms.
+  payment_terms:
+    monthly: &monthly
+      name: Monthly payments
+      periodicity: 1m
+    yearly: &yearly
+      name: Annual payments
+      periodicity: 1y
+  services:
+    10accounts: &10accounts
+      name: 10 User Accounts
+      features:
+       - feature: *account # YAML reference. Features can be declared inline
+                           # if nessesary.
+         quantity: 10
+    35accounts: &35accounts
+      name: 35 User Accounts
+      features:
+        - feature: *account
+          quantity: 35
+    100accounts: &100accounts
+      name: 100 User Accounts
+      features:
+        - feature: *account
+          quantity: 100
+    500accounts: &500accounts
+      name: 500 User Accounts
+      features:
+        - feature: *account
+          quantity: 500
+  tariff_plans:
+    10accounts_monthly:
+      service: *10accounts
+      payment_term: *monthly
+      currency: USD # ISO 4217
+      price: 3500 # Cents, pens, etc
+    10accounts_yearly:
+      service: *10accounts
+      payment_term: *yearly
+      currency: USD
+      price: 38500
+    35accounts_monthly:
+      service: *35accounts
+      payment_term: *monthly
+      currency: USD
+      price: 9500
+    35accounts_yearly:
+      service: *35accounts
+      payment_term: *yearly
+      currency: USD
+      price: 104500
+    100accounts_monthly:
+      service: *100accounts
+      payment_term: *monthly
+      currency: USD
+      price: 19900
+    100accounts_yearly:
+      service: *100accounts
+      payment_term: *yearly
+      currency: USD
+      price: 218900
+    500accounts_monthly:
+      service: *500accounts
+      payment_term: *default_monthly # Reusing payment policy from presets.yml
+      currency: USD
+      price: 9500
+    500accounts_yearly:
+      service: *500accounts
+      payment_term: *default_yearly
+      currency: USD
+      price: 104500
+
+

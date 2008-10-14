@@ -1,0 +1,11 @@
+<% @page_name = "Start page" %>
+
+<h3>All tarriff plans</h3>
+
+<ul>
+<% for k, tariff_plan in @sm.all_tariff_plans %>
+<li><%= tariff_plan['service']['name'] %> <%= link_to 'details', :action => :tariff_plan, :id => k %></li>
+<% end %>
+</ul>
+
+<p><%= link_to 'Problem subscriptions', :action => :problem_subscriptions %></p>

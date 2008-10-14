@@ -1,0 +1,24 @@
+# Tariff configuration for clickandpledge
+# http://www.clickandpledge.com/
+#
+
+clickandpledge: # namespace
+  features:
+    payment_system: &payment_system
+      name: Payment System
+      description: "Payment processing module"
+  payment_terms:
+    monthly: &monthly
+      name: Monthly payments
+      periodicity: 1m
+  services:
+    merchant_account: &merchant_account
+      name: Merchant Account
+      features:
+       - feature: *payment_system
+  tariff_plans:
+    merchant_account_monthly:
+      service: *merchant_account
+      payment_term: *monthly
+      currency: USD # ISO 4217
+      price: 2500

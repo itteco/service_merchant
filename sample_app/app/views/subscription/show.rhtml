@@ -1,0 +1,10 @@
+<% @page_name = "Subscription info" %>
+
+<%= render :partial => 'subscription', :locals => {:subscription => @subscription, :tariff_plan => @tariff_plan} %>
+<h3>Used payment profiles:</h3>
+<%= render :partial => 'recurring_payment_profile', :locals => {:profiles => @subscription.recurring_payment_profiles} %>
+
+<% if @subscription.status == 'ok' %>
+<p><%= button_to 'Unsubscribe', :action => :unsubscribe, :id => @subscription.id %> <%= button_to 'Update card info', :action => :update_card, :id => @subscription.id %></p>
+</p>
+<% end %>

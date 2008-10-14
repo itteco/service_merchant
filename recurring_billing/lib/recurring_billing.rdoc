@@ -1,0 +1,87 @@
+This class provides unified API to access remote payment gateways.
+
+== Quick overview
+=== Creating a gateway accessor
+There are two options to get an instance of an accessor for required gateway. First is to use get_instance method:
+ options = {:gateway => :authorize_net, :login => 'MyLogin', :password => 'MyPassword'}
+ gateway = RecurringBilling::RecurringBillingGateway.get_instance(options)
+which basically is an alias for the second method, directly calling
+the constructor of RecurringBilling::AuthorizeNetGateway (or any other RecurringBillingGateway descendant):
+ gateway = RecurringBilling::AuthorizeNetGateway({:login => 'MyLogin', :password => 'MyPassword'})
+First method is recommended to be used for more flexibility.
+
+=== Common options for RecurringBilling methods
+It should be self-explanatory that every recurring payment itself has many parameters - those parameters have to be specified
+when the payment is created and updated on remote gateway as well. Within the API, these are grouped for convenience into four groups
+that have become the input parameters for create and update methods:
+ - Amount
+ - Card
+ - Payment Options
+ - Recurring Options
+
+<b>Amount</b>(amount) is the object of Money class, which includes both amount and currency of the payment.
+
+<b>Card</b>(card) is the object of ActiveMerchant::Billing::CreditCard representing the credit card that is charged during recurring payments
+
+<b>Payment Options</b>(payment_options) are a hash of:
+- :subscription_name - +string+ containing the reference name for the subscription
+- :billing_address - +hash+ containing subscriber's billing address (see ActiveMerchant for more info on structure)
+- :order - +hash+ containing merchant's info about order, like invoice ID (see ActiveMerchant for more info on structure)
+- :taxes_amount_included - +boolean+ declaring if taxes are included in payment amount or not
+This set of options contains information of merchant.
+
+<b>Recurring Options</b>(payment_options) are a hash of:
+- :start_date - +Date+ object, date of the first billing occurrence
+- :interval - +string+ of <tt>(0.5|d+)\s*(d|w|m|y)/</tt> template that shows time between two consecutive billing occurrences
+- :end_date -  +Date+ object representing date after which there are no more billing occurrences
+- :occurrences - positive +integer+ showing number of billing occurrences. Either this or :end_date should be specified
+- :trial_days - positive +integer+ showing number of days of free trial
+This set of options declares settings of payment recurring occurrences.
+
+=== Creating a remote payment
+Once gateway is created, payments could be made. The whole idea is very simple - prepare parameters and use the
+create method of an instance:
+ amount = Money.us_dollar(100) # $1 USD
+ card =   ActiveMerchant::Billing::CreditCard.new({
+   :number => '4242424242424242',
+   :month => 9,
+   :year => Time.now.year + 1,
+   :first_name => 'Name',
+   :last_name => 'Lastname',
+   :verification_value => '123',
+   :type => 'visa'
+ }) # Some random credit card
+ payment_options = {
+         :subscription_name => 'Random subscription',
+         :order => {:invoice_number => 'ODMX31337'}
+         }
+ recurring_options = {
+         :start_date => Date.today,
+         :occurrences => 10,
+         :interval => '10d'
+         }
+ billing_id = gateway.create(amount, card, payment_options, recurring_options)
+You may then check the result of recurring payment creation by accessing last_response:
+ response = gateway.last_response
+ print response.inspect
+Exact structure of last_response return value is defined in respective ActiveMerchant module. Most common
+uses of last_response query are:
+ unless response.success? # succeed-failed check
+    print response.message # get message retrieved from remote gateway
+ ...
+Last response is changed whenever create, update, inquiry or delete methods are called.
+
+=== Updating and canceling a remote payment
+To update the settings of recurring payment on  gateway, just call the update method of an instance.
+ new_amount = Money.us_dollar(150) # $1.5 USD
+ success = gateway.update(billing_id, new_amount, nil, {}, {}) # or just gateway.update(new_amount)
+Please note that acceptable update parameters vary with gateway. Correctness of parameters for update is
+checked via protected correct_update? method.
+
+Recurring payment may be cancelled via delete method:
+ success = gateway.delete(billing_id)
+
+=== Inquiring gateway on payment status
+In order to inquire remote gateway on status of given subscription, inquiry method of an instance should be used:
+ result = gateway.inquiry(billing_id)
+The result structure varies from gateway to gateway.

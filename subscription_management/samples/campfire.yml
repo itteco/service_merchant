@@ -1,0 +1,74 @@
+# Tariff configuration for campfire
+# http://www.campfirenow.com/signup
+#
+
+campfire:
+  features:
+    chatter: &chatter
+      name: Simultaneous Chatters
+      description: "Simultaneous chatters are the total number of people chatting across your account in all your rooms at one time."
+    storage: &storage
+      name: "File Storage"
+      unit: Gigabyte
+      description: "File storage maximum disk quota "
+    ssl: &ssl
+      name: SSL Security
+      description: "Whether SSL encryption for online sessions is available or not"
+  payment_terms:
+    monthly: &monthly
+      name: Monthly payments
+      periodicity: 1m
+      trial_days: 30
+  services:
+    basic: &basic
+      name: Basic
+      features:
+       - feature: *chatter
+         quantity: 12
+       - feature: *storage
+         quantity: 1
+    plus: &plus
+      name: Plus
+      features:
+       - feature: *chatter
+         quantity: 25
+       - feature: *storage
+         quantity: 3
+       - feature: *ssl
+    premium: &premium
+      name: premium
+      features:
+       - feature: *chatter
+         quantity: 60
+       - feature: *storage
+         quantity: 10
+       - feature: *ssl
+    max: &max
+      name: Max
+      features:
+       - feature: *chatter
+         quantity: 100
+       - feature: *storage
+         quantity: 25
+       - feature: *ssl
+  tariff_plans:
+    basic_monthly:
+      service: *basic
+      payment_term: *monthly
+      currency: USD
+      price: 1200
+    plus_monthly:
+      service: *plus
+      payment_term: *monthly
+      currency: USD
+      price: 2400
+    premium_monthly:
+      service: *premium
+      payment_term: *monthly
+      currency: USD
+      price: 4900
+    max_monthly:
+      service: *solo
+      payment_term: *monthly
+      currency: USD
+      price: 9900

@@ -1,0 +1,37 @@
+<% @page_name = "Tariff plan" %>
+
+<h3>&quot;<%= @tariff_plan['service']['name'] %>&quot;</h3>
+
+<table><tbody>
+<%=  render :partial => 'subscription/tariff_plan', :locals => {:tariff_plan => @tariff_plan} %>
+</td></tbody></table>
+
+<% if !@active_subscriptions.empty? %>
+<h3>Active subscriptions</h3>
+<ul>
+<% for subscription in @active_subscriptions %>
+<li>Account &quot;<%= subscription.account_id %>&quot;
+&mdash;
+from <%= subscription.starts_on %>
+<% if !subscription.ends_on.nil? %>
+to <%= subscription.ends_on %>
+<% end %>
+</li>
+<% end %>
+</ul>
+<% end %>
+
+<% if !@inactive_subscriptions.empty? %>
+<h3>Inactive subscriptions</h3>
+<ul>
+<% for subscription in @inactive_subscriptions %>
+<li>Account &quot;<%= subscription.account_id %>&quot; (<%= subscription.status %>)
+&mdash;
+from <%= subscription.starts_on %>
+<% if !subscription.ends_on.nil? %>
+to <%= subscription.ends_on %>
+<% end %>
+</li>
+<% end %>
+</ul>
+<% end %>

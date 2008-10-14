@@ -1,0 +1,21 @@
+defaults:
+  gst: &gst
+    name: Goods and Services Tax
+  tax1: &tax1
+    name: Sample tax
+
+taxes:
+  ca:
+    name: non-resident, Canada
+    country: CA
+    state: *
+    taxes:
+      - tax: *gst
+        rate: 0.05
+  us_ca:
+    name: resident, CA
+    country: US
+    state: CA
+    taxes:
+      - tax: *tax1
+        rate: 0.2

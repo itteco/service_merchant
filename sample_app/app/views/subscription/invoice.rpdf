@@ -1,0 +1,57 @@
+<h3>Megasoft Inc.</h3>
+
+<p>Paid on <%= @invoice_date.strftime(@invoice_date_format) %></p>
+
+<table border=1 cellpadding=5 bordercolor=#CCCCCC width=70%><tbody><tr valign=top>
+<td>
+    <b>Invoiced To</b>
+    <p><%= @invoice_billing_name %></p>
+    <p>acc. <%= @invoice_billing_account %></p>
+    <p>
+    <%= @invoice_billing_address.gsub("\n", "<br />") %>
+    </p>
+</td>
+<td>
+    <b>Pay To</b>
+    <p>Megasoft Inc.</p>
+    <p>
+    33 Arlington st., #99<br />
+    New York, NY 99999-1111
+    </p>
+</td>
+</tr></tbody></table>
+
+<br />
+<b>Invoice #<%= @invoice_number %></b><br />
+Invoice Date: <%= @invoice_date.strftime(@invoice_date_format) %>
+<br /><br />
+
+<table border=1 cellspacing=0 cellpadding=3 bordercolor=#CCCCCC width=70%>
+<thead><tr><th>Description</th><th>Amount</th></tr></thead>
+<tbody>
+<tr><td><%= @invoice_service_name %></td>
+<td align=right><%= @invoice_net_amount %></td></tr>
+<tr><td align=right><b>Sub Total:</b></td><td align=right><b><%= @invoice_net_amount %></b></td></tr>
+<tr><td align=right><b>Tax<% if !@invoice_taxes_comment.nil? %> (<%= @invoice_taxes_comment %>)<% end %>:</b></td><td align=right><b><%= @invoice_taxes_amount %></b></td></tr>
+<tr><td align=right><b>Total:</b></td><td align=right><b><%= @invoice_total_amount %></b></td></tr>
+
+</tbody></table>
+
+<br /><b>Transactions</b>
+
+<br /><br />
+
+<table border=1 cellspacing=0 cellpadding=3 bordercolor=#CCCCCC width=70%>
+<thead><tr>
+<th>Transaction Date</th><th>Gateway</th><th>Transaction ID</th><th>Amount</th>
+</tr></thead>
+
+<tbody><tr>
+<td><%= @invoice_date.strftime(@invoice_date_format) %></td>
+<td><%= @invoice_transaction_gateway %></td>
+<td><%= @invoice_transaction_id %></td>
+<td align=right><%= @invoice_transaction_amount %></td>
+</tr>
+</tbody>
+
+</table>

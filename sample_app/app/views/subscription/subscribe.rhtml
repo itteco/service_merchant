@@ -1,0 +1,71 @@
+<% @page_name = "Subscribe" %>
+
+<% form_tag :action => :subscribe do %>
+
+<h3>Choose your tariff plan:</h3>
+
+<% for k, tariff_plan in @sm.all_tariff_plans %>
+<table style='border: solid 1px #CCC; margin: 0.5em;'><tbody>
+
+<tr><td style='background-color: #EEE; padding: 0 1em 0 0;'><label><input type='radio' name='tariff_plan_id' value='<%= k %>' /> <%= tariff_plan['service']['name'] %></label></td>
+
+<td><table><tbody>
+<%=  render :partial => 'tariff_plan', :locals => {:tariff_plan => tariff_plan} %>
+</td></tbody></table>
+</tr>
+
+</tbody></table>
+<% end %>
+
+<h3>Subscription options:</h3>
+
+<table><tbody>
+<tr><th>Quantity</th><td><input name='quantity' type='text' value='1' /></td></tr>
+<tr><th>Start date</th><td><input name='start_date' type='text' value='<%= (Date.today + 1) %>' /></td></tr>
+<tr><th>End date</th><td><input name='end_date' type='text' value='<%= Date.new(2010, 12, 11) %>' /></td></tr>
+</tbody></table>
+
+<h3>Billing options:</h3>
+
+<table><tbody>
+<tr><th>State</th><td><%= @current_account[:state] %></td></tr>
+<tr><th>Country</th><td><%= @current_account[:country] %></td></tr>
+<tr><th>Card type</th><td>
+<select name='card_type'>
+<option value='visa'>VISA</option>
+</select>
+</td></tr>
+<tr><th>Card number</th><td><input name='card_number' type='text' value='4242424242424242' /></td></tr>
+<tr><th>Card expiration</th><td>
+<select name='card_expiration_month'>
+<option>01</option>
+<option>02</option>
+<option>03</option>
+<option>04</option>
+<option>05</option>
+<option>06</option>
+<option>07</option>
+<option>08</option>
+<option>09</option>
+<option>10</option>
+<option>11</option>
+<option>12</option>
+</select>
+
+/
+
+<select name='card_expiration_year'>
+<option>2008</option>
+<option selected='selected'>2009</option>
+<option>2010</option>
+<option>2011</option>
+<option>2012</option>
+</select>
+</td></tr>
+<tr><th>Card owner first name</th><td><input name='card_first_name' type='text' value='<%= @current_account[:first_name] %>' /></td></tr>
+<tr><th>Card owner last name</th><td><input name='card_last_name' type='text' value='<%= @current_account[:last_name] %>' /></td></tr>
+<tr><th>Card verification value (CVV)</th><td><input name='card_verification_value' type='text' value='123' /></td></tr>
+</tbody></table>
+
+<p><input type='submit' name='submit' value='Subscribe'> <%= link_to 'Cancel', :action => nil %></p>
+<% end %>

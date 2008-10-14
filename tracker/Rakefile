@@ -1,0 +1,40 @@
+require 'rake'
+require File.dirname(__FILE__) + '/tasks/schema'
+
+require 'rake/testtask'
+namespace :test do
+
+  Rake::TestTask.new(:remote_tracker) do |t|
+    t.pattern = 'test/remote/**/*_test.rb'
+    t.ruby_opts << '-rubygems'
+    t.verbose = true
+  end
+
+  desc "Run all remote tests"
+  task :remote => [:remote_tracker]
+
+  Rake::TestTask.new(:unit_tracker) do |t|
+    t.pattern = 'test/unit/**/*_test.rb'
+    t.ruby_opts << '-rubygems'
+    t.verbose = true
+  end
+
+  desc "Run all unit tests"
+  task :unit => [:unit_tracker]
+
+  task :rcov do
+    begin
+      require 'rcov/rcovtask'
+      Rcov::RcovTask.new do |t|
+        t.name = 'test'
+        t.libs << 'test'
+        t.test_files = FileList['test/**/**/*test.rb']
+        t.verbose = true
+        t.rcov_opts = ['-i', '^lib', '-x', 'recurring_billing']
+      end
+    rescue StandardError
+      # ignore missing rcov
+    end
+  end
+
+end

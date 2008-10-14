@@ -1,0 +1,100 @@
+# Tariff configuration for highrise
+# http://www.highrisehq.com/signup
+#
+
+highrise:
+  features:
+    user: &user
+      name: User Accounts
+      description: "User accounts available within application"
+    storage: &storage
+      name: "File Storage"
+      unit: Gigabyte
+      description: "File storage maximum disk quota"
+    case: &case
+      name: Cases
+      description: "Cases let you keep related people, companies, notes, files, and images together on a convenient single page."
+    contact: &contact
+      name: Contacts
+      descrption: "Contacts for an account"
+    ssl: &ssl
+      name: SSL Security
+      description: "Whether SSL encryption for online sessions is available or not"
+    free_campfire_premium: &free_campfire_premium
+      name: Free Campfore Premium
+      description: "Free Premium Campfire membership. Campfire is real-time group chat tool for businesses."
+  payment_terms:
+    monthly: &monthly
+      name: Monthly payments
+      periodicity: 1m
+      trial_days: 30
+  services:
+    solo: &solo
+      name: Solo
+      features:
+       - feature: *user
+         quantity: 1
+       - feature: *storage
+         quantity: 3
+       - feature: *contact
+         quantity: 20000
+       - feature: *case
+         quantity: 0
+       - feature: *ssl
+    basic: &basic
+      name: Basic
+      features:
+       - feature: *user
+         quantity: 6
+       - feature: *storage
+         quantity: 3
+       - feature: *contact
+         quantity: 5000
+       - feature: *case
+         quantity: 5
+    plus: &plus
+      name: Plus
+      features:
+       - feature: *user
+         quantity: 15
+       - feature: *storage
+         quantity: 10
+       - feature: *contact
+         quantity: 20000
+       - feature: *case
+         quantity: 0
+       - feature: *ssl
+    pro: &pro
+      name: Pro
+      features:
+       - feature: *user
+         quantity: 40
+       - feature: *storage
+         quantity: 20
+       - feature: *contact
+         quantity: 30000
+       - feature: *case
+         quantity: 0
+       - feature: *ssl
+       - feature: *free_campfire_premium
+  tariff_plans:
+    solo_monthly:
+      service: *solo
+      payment_term: *monthly
+      currency: USD
+      price: 2900
+    basic_monthly:
+      service: *basic
+      payment_term: *monthly
+      currency: USD
+      price: 2400
+    plus_monthly:
+      service: *plus
+      payment_term: *monthly
+      currency: USD
+      price: 4900
+    pro_monthly:
+      service: *pro
+      payment_term: *monthly
+      currency: USD
+      price: 9900

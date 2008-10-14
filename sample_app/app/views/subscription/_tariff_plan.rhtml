@@ -1,0 +1,25 @@
+<!--
+<tr><th>Service</th><td><%= tariff_plan['service']['name'] %></td></tr>
+-->
+<tr><th>Features</th>
+  <td>
+    <ul style='padding: 0 0 0 1em; margin: 0;'>
+    <% for feature in tariff_plan['service']['features'] %>
+      <li><%= SubscriptionManagement.format_feature(feature) %></li>
+    <% end %>
+    </ul>
+  </td>
+</tr>
+<tr><th>Billing (w/o tax):</th>
+  <td><%= tariff_plan['currency'] %> <%= sprintf("%.2f", tariff_plan['price'] / 100.00) %>
+  <%= SubscriptionManagement.format_periodicity(tariff_plan['payment_term']['periodicity']) %></td>
+</tr>
+
+<tr><th>Trial</th><td>
+<% if !tariff_plan['payment_term']['trial_days'].nil? %>
+<%= tariff_plan['payment_term']['trial_days'] %> days
+<% else %>
+no
+<% end %>
+</td></tr>
+

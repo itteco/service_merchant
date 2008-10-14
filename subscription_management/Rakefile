@@ -1,0 +1,29 @@
+require 'rake'
+require File.dirname(__FILE__) + '/tasks/schema.rb'
+
+
+require 'rake/testtask'
+namespace :test do
+
+  Rake::TestTask.new(:remote_sm) do |t|
+    t.pattern = 'test/remote/**/*_test.rb'
+    t.ruby_opts << '-rubygems'
+    t.verbose = true
+  end
+
+  desc "Run all remote tests"
+  task :remote => [:remote_sm]
+
+  Rake::TestTask.new(:unit_sm) do |t|
+    t.pattern = 'test/unit/**/*_test.rb'
+    t.ruby_opts << '-rubygems'
+    t.verbose = true
+  end
+
+  desc "Run all unit tests"
+  task :unit => [:unit_sm]
+
+  desc "Run all tests"
+  task :all => [:unit_sm, :remote_sm]
+ 
+end

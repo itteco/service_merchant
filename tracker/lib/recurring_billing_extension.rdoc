@@ -1,0 +1,34 @@
+
+== Tracker module methods
+Tracker module provides payment profiles local storage capability for simple CRUD
+API RecurringBilling is. As a result, every RecurringBilling action is accompanied by number of Tracker database operations.
+Tracker auto-includes RecurringBilling
+and replaces its create, update, inquiry and delete methods with its own extended implementations while re-aliasing old ones as
+XXX_without_persist. The usual behavior of replacement methods is to execute corresponding old RecurringBilling method and,
+on success, to store given or returned parameters into database. Extending the methods doesn't change the syntax. Also, several
+new methods are added to RecurringBilling class.
+
+=== Updating exising remote payment
+The update method of RecurringBilling is limited by design: if updating payment information on remote gateway is impossible
+with given set of options, update raises Exception (and quits). Given that the main reason of such behavior is that RecurringBilling
+instance methods are isolated from each other payment-wise, Tracker combination of storage and gateway interaction provides an additional
+option to handle such situations. If RecurringBilling returns an Exception (meaning update is impossible), the recurring payment on
+gateway is cancelled and another, with updated options is created instead. For example, that way limitations on changing
+:recurring_options could be overcame.
+
+Two related methods are available for this feature. Both use payment gateway reference ID (+billing_id+) and combined options
+hash (+options+) as parameters. Second parameter may be obtained from usual quad-element structure something like this:
+ options = {}
+ options[:amount] = amount
+ options[:card] = card
+ options.update(payment_options)
+ options.update(recurring_options)
+To check if recurring payment could be updated by usual RecurringBilling means, can_update? method is used. This check is integrated into
+update_or_recreate method that calls can_update? and then performs traditional update, or deletes and then re-creates the payment via gateway.
+For example:
+ ...
+ options = {:start_date => Date + 1337}
+ print 'Warning! The billing profile will be re-created} if gateway.can_update?(billing_id, options)
+ gateway.update_or_recreate(billing_id, options)
+ ...
+Please note that missing but required options for payment re-creation are calculated from database.

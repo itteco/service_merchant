@@ -1,0 +1,33 @@
+# This file has all of the ActiveMerchant test account credentials.
+# Many gateways do not offer publicly available test accounts. In
+# order to make testing the gateways easy you can copy this file to
+# your home directory as the file ~/.active_merchant/fixtures.yml
+# You can then place your own test account credentials in your local
+# copy of the file.
+#
+# If the login is numeric, ensure that you place quotes around it.
+# Leading zeros will be lost when YAML parses the file if you don't.
+#
+# Paste any required PEM certificates after the pem key.
+#
+authorize_net:
+  gateway: authorize_net
+  login: 6zz6m5N4Et
+  password: 9V9wUv6Yd92t27t5
+  is_test: true
+
+# You can use either your API PEM file or API signature with PayPal.
+paypal_certificate:
+  gateway: paypal
+  login: LOGIN
+  password: PASSWORD
+  subject:
+  pem: |--
+    PASTE YOUR PEM FILE HERE
+
+paypal:
+  gateway: paypal
+  login: a.lebe_1220380924_biz_api1.list.ru
+  password: 1220380928
+  signature: An5ns1Kso7MWUdW4ErQKJJJ4qi4-ABavC-ayabELBOsjVjsDpfMCgJRN
+  is_test: true

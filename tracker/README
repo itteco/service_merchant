@@ -1,0 +1,12 @@
+See demo.rb as a starting point reference
+
+rake tracker:create_tables will create DB sctructure
+
+Dependencies
+============
+Ruby gems:
+ - activerecord
+ - activesupport >= 2.0.0
+ - activemerchant >= 1.3.2
+ - money
+ - sqlite3-ruby

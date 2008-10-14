@@ -1,0 +1,67 @@
+<% @page_name = "Start page" %>
+
+<% unless @active_subscriptions.empty? %>
+<p>You are subscribed to following subscriptions:</p>
+
+<table border="1" cellpadding="3">
+<tr>
+    <th>Service</th>
+    <th>Qty</th>
+    <th>Billing amount</th>
+    <th>Starts</th>
+    <th>Ends</th>
+    <th>More info</th>
+</tr>
+<% for subscription in @active_subscriptions %>
+  <tr style='border: 1px solid #666666;'>
+    <td><%=@sm.all_tariff_plans[subscription.tariff_plan_id]['service']['name'] %></td>
+    <td><%= subscription.quantity %></td>
+    <td><%= subscription.currency %> <%= sprintf("%.2f", subscription.billing_amount / 100.00) %>
+        (tax <%= sprintf("%.2f", subscription.taxes_amount / 100.00) %>)
+        <%= SubscriptionManagement.format_periodicity(@sm.all_tariff_plans[subscription.tariff_plan_id]['payment_term']['periodicity']) %>
+    </td>
+    <td><%= subscription.starts_on %></td>
+    <td><%= subscription.ends_on %></td>
+    <td><%= link_to 'More info', :action => :show, :id => subscription.id %></td>
+  </tr>
+
+<% end %>
+</table>
+<% else %>
+<p>You are <strong>not subscribed</strong> to any service.</p>
+<% end %>
+
+
+<% unless @inactive_subscriptions.empty? %>
+<p>You were subscribed to:</p>
+
+<table border="1" cellpadding="3">
+<tr>
+    <th>Service</th>
+    <th>Qty</th>
+    <th>Billing amount</th>
+    <th>Starts</th>
+    <th>Ends</th>
+    <th>Status</th>
+    <th>More info</th>
+</tr>
+<% for subscription in @inactive_subscriptions %>
+
+  <tr style='border: 1px solid #666666;'>
+    <td><%=@sm.all_tariff_plans[subscription.tariff_plan_id]['service']['name'] %></td>
+    <td><%= subscription.quantity %></td>
+    <td><%= subscription.currency %> <%= sprintf("%.2f", subscription.billing_amount / 100.00) %>
+        <%= SubscriptionManagement.format_periodicity(@sm.all_tariff_plans[subscription.tariff_plan_id]['payment_term']['periodicity']) %></td>
+    <td><%= subscription.starts_on %></td>
+    <td><%= subscription.ends_on %></td>
+    <td><%= subscription.status.capitalize %></td>
+    <td><%= link_to 'More info', :action => :show, :id => subscription.id %></td>
+  </tr>
+
+<% end %>
+</table>
+<% end %>
+
+<p><strong><%= link_to 'Subscribe to services', :action => :subscribe %></strong></p>
+
+<p><%= link_to 'Sample invoice', :action => :invoice, :id => 'sample' %> (PDF, ~100KB)</p>

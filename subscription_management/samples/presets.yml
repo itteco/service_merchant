@@ -1,0 +1,10 @@
+defaults:
+  payment_policies:
+    monthly: &default_monthly
+      name: Monthly payments
+      periodicity: 1m
+      description: Paid every month
+    yearly: &default_yearly
+      name: Annual payments
+      periodicity: 1y
+      description: Paid every year on the same day

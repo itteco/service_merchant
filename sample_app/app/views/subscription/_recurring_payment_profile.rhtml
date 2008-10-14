@@ -1,0 +1,41 @@
+<table border="1" cellpadding="3">
+<tr>
+  <th rowspan="2">Reference #</th>
+  <th rowspan="2">Gateway</th>
+  <th rowspan="2">Balance</th>
+  <th colspan="4">Payments</th>
+  <th colspan="5">Billing Info</th>
+  <th rowspan="2">Status</th>
+</tr>
+<tr>
+  <th>Total</th>
+  <th>Complete</th>
+  <th>Failed</th>
+  <th>Remaining</th>
+  <th>Amount</th>
+  <th>Periodicity</th>
+  <th>Start Date</th>
+  <th>Trial Days</th>
+  <th>Credit Card</th>
+</tr>
+
+<% for profile in profiles %>
+    <td><%= profile.gateway_reference %></td>
+    <td><%= profile.gateway %></td>
+    <td><%= (profile.outstanding_balance) ? profile.outstanding_balance : "n/a" %></td>
+    <td><%= (profile.total_payments_count && profile.total_payments_count >= 0) ? profile.total_payments_count : "n/a" %></td>
+    <td><%= (profile.complete_payments_count && profile.complete_payments_count >= 0) ? profile.complete_payments_count : "n/a" %></td>
+    <td><%= (profile.failed_payments_count && profile.failed_payments_count >= 0) ? profile.failed_payments_count : "n/a" %></td>
+    <td><%= (profile.remaining_payments_count && profile.remaining_payments_count >= 0) ? profile.remaining_payments_count : "n/a" %></td>
+    <td><%= profile.money_formatted %></td>
+    <td><%= SubscriptionManagement.format_periodicity(profile.periodicity).capitalize %></td>
+    <td><%= Date.new(profile.created_at.year, profile.created_at.month, profile.created_at.mday) %></td>
+    <td><%= (profile.trial_days > 0) ? profile.trial_days : "--" %></td>
+    <td><%= profile.card_owner_memo %></td>
+    <td><%= profile.status.capitalize %><% if !profile.problem_status.empty? %><br />
+          payment problem: <%= profile.problem_status %>
+        <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>

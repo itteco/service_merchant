@@ -1,0 +1,71 @@
+# Tariff configuration for basecamp
+# http://www.basecamphq.com/signup
+#
+
+basecamp:
+  features:
+    user: &project
+      name: Projects
+      unit: project
+      description: "Basecamp project"
+    storage: &storage
+      name: "File Storage"
+      unit: Gigabyte
+      description: "File storage maximum disk quota "
+    time_tracking: &time_tracking
+      name: Time Tracking
+      description: "Basecamp Time Tracking allows you to keep track of how much time your group is spending on tasks. You can run reports on individual people, date ranges, or total aggregate time across all projects."
+    ssl: &ssl
+      name: SSL Security
+      description: "Whether SSL encryption for online sessions is available or not"
+    free_campfire_premium: &free_campfire_premium
+      name: Free Campfire Premium
+      description: "Free Premium Campfire membership. Campfire is real-time group chat tool for businesses."
+  payment_terms:
+    monthly: &monthly
+      name: Monthly payments
+      periodicity: 1m
+      trial_days: 30
+  services:
+    basic: &basic
+      name: Basic
+      features:
+       - feature: *project
+         quantity: 15
+       - feature: *storage
+         quantity: 3
+    plus: &plus
+      name: Plus
+      features:
+       - feature: *project
+         quantity: 35
+       - feature: *storage
+         quantity: 10
+       - feature: *time_tracking
+       - feature: *ssl
+    max: &max
+      name: Max
+      features:
+       - feature: *project
+         quantity: 0
+       - feature: *storage
+         quantity: 50
+       - feature: *time_tracking
+       - feature: *ssl
+       - feature: *free_campfire_premium
+  tariff_plans:
+    basic_monthly:
+      service: *basic
+      payment_term: *monthly
+      currency: USD
+      price: 2400
+    plus_monthly:
+      service: *plus
+      payment_term: *monthly
+      currency: USD
+      price: 4900
+    max_monthly:
+      service: *max
+      payment_term: *monthly
+      currency: USD
+      price: 14900
