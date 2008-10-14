@@ -61,7 +61,7 @@ appropriate region!
 
 Currently this library is available from https://github.com/itteco/service_merchant
 
- git clone git@github.com:itteco/service_merchant.git
+    git clone git://github.com/itteco/service_merchant.git
 
 == Installation
 
