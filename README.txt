@@ -221,7 +221,7 @@ Pack source code as GEM and publish on rubyforge
  - Itteco Software (http://www.itteco.com)
  - Alexander Lebedev <me@alexlebedev.com>
  - Artyom Scorecky <tonn81@gmail.com>
- - Anatoly Ivanov <xyzman@gmail.com>
+ - Anatoly Ivanov <mail@anatoly-ivanov.com>
 
 == Contributing
 
