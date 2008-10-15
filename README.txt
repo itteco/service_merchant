@@ -52,8 +52,8 @@ all ongoing operations.
 
 === Subscription Manager
 
-Subscription Manager provides high-level logic for managic
-subscriptionsm services, tariff plans, payment poliies and so on.  You
+Subscription Manager provides high-level logic for managing
+subscription services, tariff plans, payment poliies and so on.  You
 can even use it to automatically adjust final price with the tax of
 appropriate region!
 
