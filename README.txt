@@ -54,8 +54,8 @@ all ongoing operations.
 
 === Subscription Manager
 
-Subscription Manager provides high-level logic for managic
-subscriptionsm services, tariff plans, payment poliies and so on.  You
+Subscription Manager provides high-level logic for managing
+subscription services, tariff plans, payment poliies and so on.  You
 can even use it to automatically adjust final price with the tax of
 appropriate region!
 
@@ -222,7 +222,7 @@ Pack source code as GEM and publish on rubyforge
 
  - Alexander Lebedev <me@alexlebedev.com>
  - Artyom Scorecky <tonn81@gmail.com>
- - Anatoly Ivanov <xyzman@gmail.com>
+ - Anatoly Ivanov <mail@anatoly-ivanov.com>
 
 Sponsored by [Itteco Software](http://itteco.com)
 
