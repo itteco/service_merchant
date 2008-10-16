@@ -4,21 +4,23 @@ ServiceMerchant
 *Ruby toolkit for recurring billing and subscription management*
 
 ServiceMerchant is an open source library for Software-as-a-Service
-applications, based on subscription payments and various service plans.
-The library consists of number of well-isolated and
-well-defined components, so that you may re-use portions of the library,
-should you find the full functionality not required for you. If you choose
-to use the library as whole, it should be cover most of your payments
-requirements, thus being billing module for your application.
+applications, based on subscription payments and various service
+plans.  The library consists of number of well-isolated and
+well-defined components, so that you may re-use portions of the
+library, should you find the full functionality not required for
+you. If you choose to use the library as whole, it should cover most
+of your payments requirements, thus being billing module for your
+application.
 
 ServiceMerchant's main purpose is providing gateway-independent
 support for recurring billing operations and powerful high-level tools
-for builing subscription-based billing atop of it.  It is based on
-well-known [Active Merchant](http://www.activemerchant.org/) library.
+for building subscription-based billing atop of it.  It is built on
+top of well-known [Active Merchant](http://www.activemerchant.org/)
+library.
 
-ServiceMerchant can be used both as a Rails plugin or standalone Ruby
+ServiceMerchant can be used both as a Rails plug-in or standalone Ruby
 library.  It is also possible to integrate ServiceMerchant with
-non-Ruby web applications via common GUI or REST interface.
+non-Ruby web applications via REST interface or common GUI.
 
 == Supported Gateways
 
@@ -218,10 +220,11 @@ Pack source code as GEM and publish on rubyforge
 
 == Developers
 
- - Itteco Software (http://www.itteco.com)
  - Alexander Lebedev <me@alexlebedev.com>
  - Artyom Scorecky <tonn81@gmail.com>
  - Anatoly Ivanov <xyzman@gmail.com>
+
+Sponsored by [Itteco Software](http://itteco.com)
 
 == Contributing
 
