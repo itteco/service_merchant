@@ -39,7 +39,7 @@ namespace :subscription do
     begin
       begin
         connected = true if ActiveRecord::Base.connection
-      rescue ActiveRecord::ConenctionNotEstablished
+      rescue ActiveRecord::ConnectionNotEstablished
       end
     rescue NameError # ActiveRecord not loaded
     end
