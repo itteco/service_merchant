@@ -135,16 +135,29 @@ Currently this library is available from https://github.com/itteco/service_merch
 
 1.1. GEM installation:
 
+  1) gem install servicemerchant
+
   #TODO#
 
-1.2. Manual installation:
+1.2. Rails plugin installation
+
+  1) Install plugin
+
+      script/plugin install git://github.com/itteco/service_merchant.git
+
+  2) [optional] Create ServiceMerchant database (will delete current
+  database):
+
+     rake service_merchant:create_all_tables
+
+1.3. Manual installation:
 
   1) Download and unpack source
 
   2) [optional] Create ServiceMerchant database (will delete current
   database):
 
-     cd {unpack_dir}/trunk
+     cd {unpack_dir}
      rake create_all_tables
 
 2. Configuration:
@@ -173,14 +186,14 @@ Other test-related tasks:
 
  1) Simple command-line sample app:
 
-    cd {unpack_dir}/trunk
+    cd {unpack_dir}
     ./demo.rb
 
     Please, refer to its source code for details.
 
  2) Simple web site (Ruby on Rails application):
 
-    cd {unpack_dir}/trunk/sample_app
+    cd {unpack_dir}/sample_app
     ./script/server
 
   and open http://127.0.0.1:3000/ and http://127.0.0.1:3000/admin in
