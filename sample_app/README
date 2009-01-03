@@ -7,3 +7,6 @@
 Requires Ruby on Rails 2.1+ See ../README.txt for service_merchant
 dependencies and installation instructions
 
+cd {unpack_dir}/sample_app
+rake sample_app:setup
+./script/server

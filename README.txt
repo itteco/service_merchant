@@ -194,6 +194,7 @@ Other test-related tasks:
  2) Simple web site (Ruby on Rails application):
 
     cd {unpack_dir}/sample_app
+    rake sample_app:setup
     ./script/server
 
   and open http://127.0.0.1:3000/ and http://127.0.0.1:3000/admin in
