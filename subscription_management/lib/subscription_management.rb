@@ -84,21 +84,16 @@ require 'active_support/inflector'
       subscription.tariff_plan_id = options[:tariff_plan]
       subscription.quantity = options[:quantity]
 
-
       # Set tariff-related fields
       tariff = @all_tariff_plans[subscription.tariff_plan_id]
       raise ArgumentError, 'Invalid tariff given: %s' % subscription.tariff_plan_id if tariff.nil?
       subscription.currency = tariff["currency"]
       subscription.periodicity = tariff["payment_term"]["periodicity"]
-
+      subscription.taxes_id = get_applicable_taxes_id(options[:account_country], options[:account_state])
       subscription.starts_on = options[:start_date] + tariff["payment_term"]["trial_days"]
       subscription.ends_on = options[:end_date]
 
-      # Set tax- and payment-related fields
-      subscription.taxes_id = get_applicable_taxes_id(options[:account_country], options[:account_state])
-      total_tax = @all_taxes[subscription.taxes_id]["taxes"].inject(0){|sum,item| sum + item["rate"]}   # sum all taxes
-      subscription.net_amount = subscription.quantity * tariff["price"]
-      subscription.taxes_amount = subscription.net_amount * total_tax
+      subscription.recalc_price(self)
 
       subscription.status = 'pending'
       subscription.save
@@ -140,7 +135,10 @@ require 'active_support/inflector'
 
     # Update subscription through specified payment gateway
     def update_subscription(subscription_id, options)
+      subscription = Subscription.find_by_id(subscription_id)
       profile = get_active_profile(subscription_id)
+      options[:amount] = Money.new(subscription.billing_amount, subscription.currency)
+      options[:taxes_amount_included] = Money.new(subscription.taxes_amount,subscription.currency)
       gw = RecurringBilling::RecurringBillingGateway.get_instance(@gateway)
       unless new_gateway_reference = gw.update_or_recreate(profile.gateway_reference, options)
         raise StandardError, 'Cannot update subscription through gateway: ' + gw.last_response.message

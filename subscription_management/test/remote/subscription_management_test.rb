@@ -11,29 +11,30 @@ class SubscriptionManagementRemoteTest < Test::Unit::TestCase
                   :gateways_config => File.dirname(__FILE__) + '/../../../recurring_billing/test/fixtures.yml',
                   :gateway => :paypal
                   )
+    @subscription_options =  {
+      :account_id => 'test_acc_id',
+      :account_country => 'US',
+      :account_state => 'CA',
+      :tariff_plan => 'solo_monthly',
+      :start_date => (Date.today + 1),
+      :quantity => 1,
+      :end_date => DateTime.new(2010, 12, 11)
+    }
+    @credit_card = credit_card()
   end
 
+  # TODO: Split into several smaller tests
   # Checks if there are no exceptions while manipulating class with legit data; based on demo.rb
   def test_crud_is_working
-    options = {
-              :account_id => 'test_acc_id',
-              :account_country => 'US',
-              :account_state => 'CA',
-              :tariff_plan => 'solo_monthly',
-              :start_date => (Date.today + 1),
-              :quantity => 1,
-              :end_date => DateTime.new(2010, 12, 11)
-              }
-    credit_card = credit_card()
     credit_card_2 = credit_card(4929838635250031, {:year => Time.now.year + 5})
     credit_card_3 = credit_card(4929273971564532, {:year => Time.now.year + 3})
 
     assert_raise StandardError do; @sm.get_active_profile(-1); end
 
-    subscription_id = @sm.subscribe(options)
+    subscription_id = @sm.subscribe(@subscription_options)
     assert_equal 'pending', Subscription.find_by_id(subscription_id).status
     assert_raise StandardError do; @sm.get_active_profile(subscription_id); end
-    @sm.pay_for_subscription(subscription_id, credit_card, {})
+    @sm.pay_for_subscription(subscription_id, @credit_card, {})
     subscription = Subscription.find_by_id(subscription_id)
     assert_equal 'ok', subscription.status
     assert_equal 700, subscription.net_amount
@@ -109,4 +110,19 @@ class SubscriptionManagementRemoteTest < Test::Unit::TestCase
     assert_equal 'canceled', Subscription.find_by_id(subscription_id).status
   end
 
+  def test_update_subscription_amount
+    subscription_id = @sm.subscribe(@subscription_options)
+    @sm.pay_for_subscription(subscription_id, @credit_card, {})
+    subscription = Subscription.find_by_id(subscription_id)
+    assert_equal 'ok', subscription.status
+    initial_net_price, initial_tax = subscription.net_amount, subscription.taxes_amount
+
+    subscription.update_quantity(subscription.quantity*2, @sm)
+    @sm.update_subscription(subscription.id, {})
+    #puts subscription.inspect
+    profile = @sm.get_active_profile(subscription)
+    #puts profile.inspect
+    assert_equal(2*initial_net_price, profile.net_amount)
+    assert_equal(2*initial_tax, profile.taxes_amount)
+  end
 end
