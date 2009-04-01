@@ -54,10 +54,14 @@ namespace :tracker do
     connected = false
     begin
       begin
+        Rake::Task[:environment].invoke
         connected = true if ActiveRecord::Base.connection
       rescue ActiveRecord::ConnectionNotEstablished
+        # ignore
+      rescue RuntimeError
+        puts "no database configuration found"
       end
-    rescue NameError # ActiveRecord not loaded
+    rescue NameError # ActiveRecord not loaded, use test mode
     end
     require File.dirname(__FILE__) + "/../test/connection" unless connected
   end
