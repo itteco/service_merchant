@@ -3,7 +3,7 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 require 'rake/gempackagetask'
-#require 'rake/contrib/rubyforgepublisher'
+require 'rake/contrib/rubyforgepublisher'
 
 PKG_VERSION = "0.1.0"
 PKG_NAME = "service_merchant"
