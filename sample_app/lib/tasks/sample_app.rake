@@ -1,6 +1,7 @@
 namespace :sample_app do
   # Prevent visibility outside sample_app dir
-  if %r(^#{Dir.getwd}) =~ __FILE__ and %r(/sample_app/$) =~ Dir.getwd
+  #if %r(^#{Dir.getwd}) =~ __FILE__ and %r(/sample_app/$) =~ Dir.getwd
+  if Dir.getwd =~ /sample_app/
     desc "Create subscription management and require plugins' database tables"
     task :setup => %w(dependencies tracker:create_tables subscription:create_tables)
 

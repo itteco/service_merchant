@@ -40,7 +40,8 @@ namespace :tracker do
       t.column :created_at,                   :datetime
       t.column :recorded_at,                  :datetime
     end
-    ActiveRecord::Base.connection.add_index :tracker_transactions, [ :recurring_payment_profile_id ]
+    ActiveRecord::Base.connection.add_index :tracker_transactions, [ :recurring_payment_profile_id ], 
+      :name => 'ix_tracker_recurring_payment_profile_id'
   end
 
   desc 'Drop Tracker database tables'

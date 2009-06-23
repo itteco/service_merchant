@@ -1,0 +1,5 @@
+sample_app/log/*.log
+sample_app/log/*.pid
+sample_app/tmp/**/*
+sample_app/db/*.sqlite3
+
